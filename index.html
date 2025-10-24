@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Form Validation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #2575fc;
+    }
+
+    small {
+      color: red;
+      font-size: 13px;
+      position: absolute;
+      bottom: -18px;
+      left: 5px;
+    }
+
+    button {
+      width: 100%;
+      background: #2575fc;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #1a5fd0;
+    }
+
+    .success input {
+      border-color: #2ecc71;
+    }
+
+    .error input {
+      border-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register Form</h2>
+    <form id="registrationForm">
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+        <small class="error"></small>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <small class="error"></small>
+      </div>
+
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="text" id="phone" placeholder="Enter your phone number" required />
+        <small class="error"></small>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password" required />
+        <small class="error"></small>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+        <small class="error"></small>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      validateForm();
+    });
+
+    function validateForm() {
+      // Name validation
+      const name = nameInput.value.trim();
+      if (name === '') {
+        setError(nameInput, 'Name is required');
+      } else {
+        setSuccess(nameInput);
+      }
+
+      // Email validation
+      const email = emailInput.value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        setError(emailInput, 'Enter a valid email');
+      } else {
+        setSuccess(emailInput);
+      }
+
+      // Phone validation
+      const phone = phoneInput.value.trim();
+      if (!/^[0-9]{10}$/.test(phone)) {
+        setError(phoneInput, 'Phone number must be 10 digits');
+      } else {
+        setSuccess(phoneInput);
+      }
+
+      // Password validation
+      const password = passwordInput.value.trim();
+      if (password.length < 6) {
+        setError(passwordInput, 'Password must be at least 6 characters');
+      } else {
+        setSuccess(passwordInput);
+      }
+
+      // Confirm password validation
+      const confirmPassword = confirmPasswordInput.value.trim();
+      if (password !== confirmPassword) {
+        setError(confirmPasswordInput, 'Passwords do not match');
+      } else {
+        setSuccess(confirmPasswordInput);
+      }
+
+      // Final check
+      const inputs = document.querySelectorAll('.input-group');
+      const allValid = Array.from(inputs).every(input =>
+        input.classList.contains('success')
+      );
+
+      if (allValid) {
+        alert('Form submitted successfully!');
+        form.reset();
+        inputs.forEach(input => input.classList.remove('success'));
+      }
+    }
+
+    function setError(input, message) {
+      const parent = input.parentElement;
+      const small = parent.querySelector('small');
+      small.textContent = message;
+      parent.classList.add('error');
+      parent.classList.remove('success');
+    }
+
+    function setSuccess(input) {
+      const parent = input.parentElement;
+      const small = parent.querySelector('small');
+      small.textContent = '';
+      parent.classList.add('success');
+      parent.classList.remove('error');
+    }
+  </script>
+</body>
+</html>
