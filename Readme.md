@@ -14,12 +14,12 @@ VS Code & GitHub: For development and version control
 
 **🚀 Features**
 
-Real-Time Validation:** Instantly checks inputs as users type.
-Error and Success Messages:** Displays alerts for invalid and valid data.
-Responsive Design:** Works smoothly on both mobile and desktop devices.
-Cross-Browser Compatibility:** Runs consistently across major browsers.
-Accessible Interface:** Focus highlights and guidance for better usability.
-Clean UI:** Simple and attractive layout using CSS.
+Real-Time Validation: Instantly checks inputs as users type.
+Error and Success Messages: Displays alerts for invalid and valid data.
+Responsive Design: Works smoothly on both mobile and desktop devices.
+Cross-Browser Compatibility: Runs consistently across major browsers.
+Accessible Interface: Focus highlights and guidance for better usability.
+Clean UI: Simple and attractive layout using CSS.
 
 **⚙️ Challenges Faced**
 
